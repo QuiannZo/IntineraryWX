@@ -3,14 +3,43 @@
 
 #include "MainFrame.hpp"
 
+topPanel::topPanel(wxWindow* parent) 
+: wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(1220, 550), wxWANTS_CHARS) {
+    this->SetBackgroundColour(wxColor(63, 63, 63));
+
+    // Buttons.
+    wxButton* previousMonthButton = new wxButton(this, wxID_ANY, "<", wxPoint(0,0), wxSize(20, 500));
+    wxButton* nextMonthButton = new wxButton(this, wxID_ANY, ">", wxPoint(1200,0), wxSize(20, 500));
+
+    wxBoxSizer* s1 = new wxBoxSizer(wxHORIZONTAL);
+    s1->Add(previousMonthButton, 0, wxALIGN_CENTER_VERTICAL);
+    s1->AddStretchSpacer(); 
+    s1->Add(nextMonthButton, 0, wxALIGN_CENTER_VERTICAL);
+
+    this->SetSizerAndFit(s1);
+
+    // Dinamic buttons events. Handeled by the buttons. (The events can propagate with evt.Skip() method.).
+    previousMonthButton->Bind(wxEVT_BUTTON, &topPanel::OnLeftButtonClicked, this);
+    nextMonthButton->Bind(wxEVT_BUTTON, &topPanel::OnRightButtonClicked, this);
+}
+
+bottomPanel::bottomPanel(wxWindow* parent) 
+: wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(1220, 70), wxWANTS_CHARS){}
+
 // Main window. constructor.
 MainFrame::MainFrame(const wxString& title, const wxPoint& position, const wxSize& size) 
 : wxFrame(nullptr, wxID_ANY, title, position, size) {
-    // Main Panel.
-    wxPanel* panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS);
+    // Main Panels.
+    topPanel* panelTop = new topPanel(this);
+    bottomPanel* panelBottom = new bottomPanel(this);
     
-    // // Sizer.
-    
+    // // Sizer at MainFrame for the panels.
+    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    sizer->Add(panelTop, 1, wxEXPAND);
+    sizer->Add(panelBottom, 0, wxEXPAND);
+
+    // Set sizer.
+    this->SetSizerAndFit(sizer);
 
     // // Menu bar.
     // creates wxMenu's menuFile and menuHelp.
@@ -29,37 +58,27 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& position, const wxSiz
     CreateStatusBar();
     SetStatusText("Version 1.0");
 
-    // // Dinamic events.
+    // // Dinamic events in MainFrame.
     Bind(wxEVT_MENU, &MainFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &MainFrame::OnExit, this, wxID_EXIT);
-
-    wxButton* previousMonthButton = new wxButton(panel, wxID_ANY, "<", wxPoint(0,0), wxSize(20, 500));
-    wxButton* nextMonthButton = new wxButton(panel, wxID_ANY, ">", wxPoint(1000,0), wxSize(20, 500));
-
-    // Dinamic buttons events. Handeled by the buttons. (The events can propagate with evt.Skip() method.).
-    previousMonthButton->Bind(wxEVT_BUTTON, &MainFrame::OnLeftButtonClicked, this);
-    nextMonthButton->Bind(wxEVT_BUTTON, &MainFrame::OnRightButtonClicked, this);
 }
 
 // Keyboard events.
-void MainFrame::OnKeyEvent(wxKeyEvent& event){
-    //
-}
+void MainFrame::OnKeyEvent(wxKeyEvent& event){}
 
 void MainFrame::OnExit(wxCommandEvent& event) {
     Close(true);
 }
 
 // dinamic event 'OnAbout'
-void MainFrame::OnAbout(wxCommandEvent& event)
-{
+void MainFrame::OnAbout(wxCommandEvent& event) {
     wxMessageBox("This is a personal proyect for college", "About The Proyect");
 }
 
-void MainFrame::OnLeftButtonClicked(wxCommandEvent& evt){
+void topPanel::OnLeftButtonClicked(wxCommandEvent& evt){
     wxLogStatus("Left click.");
 }
 
-void MainFrame::OnRightButtonClicked(wxCommandEvent& evt){
+void topPanel::OnRightButtonClicked(wxCommandEvent& evt){
     wxLogStatus("Right click.");
 }
