@@ -6,14 +6,13 @@
 class MainFrame : public wxFrame {
 public:
     // the main frame. uses wxFrame constructor.
-    MainFrame();
+    MainFrame(const wxString& title, const wxPoint& position, const wxSize& size);
 private:
-    // dinamic events. 
+    // Keyboard.
+    void OnKeyEvent(wxKeyEvent& event);
+    // dinamic events for widgets.
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
-};
-
-// enum for tags.
-enum {
-    ID_Hello = 1
+    void OnLeftButtonClicked(wxCommandEvent& evt);
+    void OnRightButtonClicked(wxCommandEvent& evt);
 };

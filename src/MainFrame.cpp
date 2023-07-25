@@ -1,9 +1,17 @@
 #include <wx/wx.h> //includes commonly needed libs.
+#include <wx/sizer.h>
 
 #include "MainFrame.hpp"
 
 // Main window. constructor.
-MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Intinerary") {
+MainFrame::MainFrame(const wxString& title, const wxPoint& position, const wxSize& size) 
+: wxFrame(nullptr, wxID_ANY, title, position, size) {
+    // Main Panel.
+    wxPanel* panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS);
+    
+    // // Sizer.
+    
+
     // // Menu bar.
     // creates wxMenu's menuFile and menuHelp.
     wxMenu *menuFile = new wxMenu;
@@ -15,7 +23,7 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Intinerary") {
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuHelp, "&Help");
     // sets menuBar to the one created.
-    SetMenuBar( menuBar );
+    SetMenuBar(menuBar);
     
     // // Status bar.
     CreateStatusBar();
@@ -24,9 +32,20 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Intinerary") {
     // // Dinamic events.
     Bind(wxEVT_MENU, &MainFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &MainFrame::OnExit, this, wxID_EXIT);
+
+    wxButton* previousMonthButton = new wxButton(panel, wxID_ANY, "<", wxPoint(0,0), wxSize(20, 500));
+    wxButton* nextMonthButton = new wxButton(panel, wxID_ANY, ">", wxPoint(1000,0), wxSize(20, 500));
+
+    // Dinamic buttons events. Handeled by the buttons. (The events can propagate with evt.Skip() method.).
+    previousMonthButton->Bind(wxEVT_BUTTON, &MainFrame::OnLeftButtonClicked, this);
+    nextMonthButton->Bind(wxEVT_BUTTON, &MainFrame::OnRightButtonClicked, this);
 }
- 
-// dinamic event 'OnExit'
+
+// Keyboard events.
+void MainFrame::OnKeyEvent(wxKeyEvent& event){
+    //
+}
+
 void MainFrame::OnExit(wxCommandEvent& event) {
     Close(true);
 }
@@ -34,5 +53,13 @@ void MainFrame::OnExit(wxCommandEvent& event) {
 // dinamic event 'OnAbout'
 void MainFrame::OnAbout(wxCommandEvent& event)
 {
-    wxMessageBox("This is a personal proyect for college", "About The Proyect", wxOK | wxICON_INFORMATION);
+    wxMessageBox("This is a personal proyect for college", "About The Proyect");
+}
+
+void MainFrame::OnLeftButtonClicked(wxCommandEvent& evt){
+    wxLogStatus("Left click.");
+}
+
+void MainFrame::OnRightButtonClicked(wxCommandEvent& evt){
+    wxLogStatus("Right click.");
 }
