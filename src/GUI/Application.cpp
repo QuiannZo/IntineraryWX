@@ -9,7 +9,7 @@ wxIMPLEMENT_APP(Application);
 // Function that runs the program until false.
 // Creates an instance of the main window and shows it.
 bool Application::OnInit() {
-    MainFrame* frame = new MainFrame("Intinerary", wxDefaultPosition, wxSize(1020, 650));
+    MainFrame* frame = new MainFrame("Intinerary", wxDefaultPosition, wxSize(1220, 650));
     frame->Show(true);
     return true;
 }

@@ -1,5 +1,5 @@
 # Directories
-SRC_DIR := src
+SRC_DIR := src/GUI
 BUILD_DIR := build
 BIN_DIR := bin
 

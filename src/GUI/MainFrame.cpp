@@ -5,26 +5,37 @@
 
 topPanel::topPanel(wxWindow* parent) 
 : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(1220, 550), wxWANTS_CHARS) {
-    this->SetBackgroundColour(wxColor(63, 63, 63));
+    this->SetBackgroundColour(wxColor(18, 18, 18));
+
+    // PanelText.
+    wxStaticText* staticText = new wxStaticText(this, wxID_ANY, "July", wxPoint(25, 14), wxSize(100, 70), wxALIGN_CENTER);
+    staticText->SetForegroundColour(wxColor(255, 255, 255));
+    wxFont font(26, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+    staticText->SetFont(font);
+
+    // Grid.
+}
+
+bottomPanel::bottomPanel(wxWindow* parent) 
+: wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(1220, 10), wxWANTS_CHARS){
+    this->SetBackgroundColour(wxColor(18, 18, 18));
 
     // Buttons.
-    wxButton* previousMonthButton = new wxButton(this, wxID_ANY, "<", wxPoint(0,0), wxSize(20, 500));
-    wxButton* nextMonthButton = new wxButton(this, wxID_ANY, ">", wxPoint(1200,0), wxSize(20, 500));
+    wxButton* previousMonthButton = new wxButton(this, wxID_ANY, "<");
+    previousMonthButton->SetBackgroundColour(wxColor(18, 18, 18));
+    wxButton* nextMonthButton = new wxButton(this, wxID_ANY, ">");
+    nextMonthButton->SetBackgroundColour(wxColor(18, 18, 18));
 
     wxBoxSizer* s1 = new wxBoxSizer(wxHORIZONTAL);
-    s1->Add(previousMonthButton, 0, wxALIGN_CENTER_VERTICAL);
-    s1->AddStretchSpacer(); 
-    s1->Add(nextMonthButton, 0, wxALIGN_CENTER_VERTICAL);
+    s1->Add(previousMonthButton, 1, wxALIGN_CENTER_VERTICAL);
+    s1->Add(nextMonthButton, 1, wxALIGN_CENTER_VERTICAL);
 
     this->SetSizerAndFit(s1);
 
     // Dinamic buttons events. Handeled by the buttons. (The events can propagate with evt.Skip() method.).
-    previousMonthButton->Bind(wxEVT_BUTTON, &topPanel::OnLeftButtonClicked, this);
-    nextMonthButton->Bind(wxEVT_BUTTON, &topPanel::OnRightButtonClicked, this);
+    previousMonthButton->Bind(wxEVT_BUTTON, &bottomPanel::OnLeftButtonClicked, this);
+    nextMonthButton->Bind(wxEVT_BUTTON, &bottomPanel::OnRightButtonClicked, this);
 }
-
-bottomPanel::bottomPanel(wxWindow* parent) 
-: wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(1220, 70), wxWANTS_CHARS){}
 
 // Main window. constructor.
 MainFrame::MainFrame(const wxString& title, const wxPoint& position, const wxSize& size) 
@@ -55,8 +66,8 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& position, const wxSiz
     SetMenuBar(menuBar);
     
     // // Status bar.
-    CreateStatusBar();
-    SetStatusText("Version 1.0");
+    //CreateStatusBar();
+    //SetStatusText("Version 1.0");
 
     // // Dinamic events in MainFrame.
     Bind(wxEVT_MENU, &MainFrame::OnAbout, this, wxID_ABOUT);
@@ -75,10 +86,10 @@ void MainFrame::OnAbout(wxCommandEvent& event) {
     wxMessageBox("This is a personal proyect for college", "About The Proyect");
 }
 
-void topPanel::OnLeftButtonClicked(wxCommandEvent& evt){
+void bottomPanel::OnLeftButtonClicked(wxCommandEvent& evt){
     wxLogStatus("Left click.");
 }
 
-void topPanel::OnRightButtonClicked(wxCommandEvent& evt){
+void bottomPanel::OnRightButtonClicked(wxCommandEvent& evt){
     wxLogStatus("Right click.");
 }

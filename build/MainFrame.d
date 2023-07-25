@@ -1,5 +1,5 @@
-build/MainFrame.o: src/MainFrame.cpp /usr/local/include/wx-3.2/wx/wx.h \
- /usr/local/include/wx-3.2/wx/defs.h \
+build/MainFrame.o: src/GUI/MainFrame.cpp \
+ /usr/local/include/wx-3.2/wx/wx.h /usr/local/include/wx-3.2/wx/defs.h \
  /usr/local/include/wx-3.2/wx/platform.h \
  /usr/local/include/wx-3.2/wx/compiler.h \
  /usr/local/lib/wx/include/gtk3-unicode-3.2/wx/setup.h \
@@ -219,4 +219,4 @@ build/MainFrame.o: src/MainFrame.cpp /usr/local/include/wx-3.2/wx/wx.h \
  /usr/local/include/wx-3.2/wx/gtk/filectrl.h \
  /usr/local/include/wx-3.2/wx/filectrl.h \
  /usr/local/include/wx-3.2/wx/mdi.h \
- /usr/local/include/wx-3.2/wx/gtk/mdi.h src/MainFrame.hpp
+ /usr/local/include/wx-3.2/wx/gtk/mdi.h src/GUI/MainFrame.hpp

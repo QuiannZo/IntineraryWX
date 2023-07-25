@@ -1,4 +1,4 @@
-build/Application.o: src/Application.cpp \
+build/Application.o: src/GUI/Application.cpp \
  /usr/local/include/wx-3.2/wx/wx.h /usr/local/include/wx-3.2/wx/defs.h \
  /usr/local/include/wx-3.2/wx/platform.h \
  /usr/local/include/wx-3.2/wx/compiler.h \
@@ -219,5 +219,5 @@ build/Application.o: src/Application.cpp \
  /usr/local/include/wx-3.2/wx/gtk/filectrl.h \
  /usr/local/include/wx-3.2/wx/filectrl.h \
  /usr/local/include/wx-3.2/wx/mdi.h \
- /usr/local/include/wx-3.2/wx/gtk/mdi.h src/Application.hpp \
- src/MainFrame.hpp
+ /usr/local/include/wx-3.2/wx/gtk/mdi.h src/GUI/Application.hpp \
+ src/GUI/MainFrame.hpp

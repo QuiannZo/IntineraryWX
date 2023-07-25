@@ -6,15 +6,15 @@
 class topPanel : public wxPanel{
   public:
     topPanel(wxWindow* parent);
-  private:
-    void OnLeftButtonClicked(wxCommandEvent& evt);
-    void OnRightButtonClicked(wxCommandEvent& evt);
 };
 
 // Bottom panel in the main frame.
 class bottomPanel : public wxPanel{
   public:
     bottomPanel(wxWindow* parent);
+  private:
+    void OnLeftButtonClicked(wxCommandEvent& evt);
+    void OnRightButtonClicked(wxCommandEvent& evt);
 };
 
 // Main window. Must inherit from wxFrame.
